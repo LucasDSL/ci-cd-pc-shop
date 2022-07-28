@@ -1,30 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { CreatePartDto } from './dto/create-part.dto';
-import { UpdatePartDto } from './dto/update-part.dto';
-import { Part } from './entities/part.entity';
-import { PartsController } from './parts.controller';
-import { PartsService } from './parts.service';
+import { CreatePartDto } from '../dto/create-part.dto';
+import { UpdatePartDto } from '../dto/update-part.dto';
+import { Part } from '../entities/part.entity';
+import { PartsController } from '../parts.controller';
+import { PartsService } from '../parts.service';
+import mockPartsService from './mocks/parts.service.mock';
 
 describe('PartsController', () => {
   let controller: PartsController;
-  const mockPartsService = {
-    create: jest.fn((dto: CreatePartDto) => {
-      return new Part();
-    }),
-    findAll: jest.fn(() => {
-      const listParts: Part[] = [].fill(new Part(), 0, 2);
-      return listParts;
-    }),
-    findOne: jest.fn((id: number) => {
-      const listParts = [new Part()];
-      return listParts[id];
-    }),
-    update: jest.fn((id: string, dto: UpdatePartDto) => new UpdateResult()),
-    remove: jest.fn((id: string) => new DeleteResult()),
-  };
-  beforeEach(async () => {
+
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PartsController],
       providers: [PartsService],

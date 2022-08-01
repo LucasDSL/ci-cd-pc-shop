@@ -1,0 +1,25 @@
+name: Node.js
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        mysql-version: [8.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.Js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test

@@ -1,4 +1,4 @@
-name: Node.js
+name: Node.js testing
 
 on:
   push:
@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
-        mysql-version: [8.x]
 
     steps:
       - uses: actions/checkout@v3

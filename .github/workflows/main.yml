@@ -8,9 +8,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "cicd-pc-shop"
-          heroku_email: "lucasdslima2002@gmail.com"
+      - uses: actions/checkout@v1
+      - name: Login to heroku Container registry
+        env:
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:login
+
+      - name: Build and Push
+        env:
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
+
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web

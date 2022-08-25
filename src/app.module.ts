@@ -12,7 +12,6 @@ import { PartsModule } from './parts/parts.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      port: parseInt(process.env.PORT),
     }),
     PartsModule,
   ],

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Part } from './parts/entities/part.entity';
 import { PartsModule } from './parts/parts.module';
 
 @Module({
@@ -12,6 +13,8 @@ import { PartsModule } from './parts/parts.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+      //synchronize: true, not for production ok ?!
+      entities: [Part],
     }),
     PartsModule,
   ],
